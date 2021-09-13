@@ -10,6 +10,9 @@ import (
 
 type MapConfig struct {
 	BasicMapConfig `yaml:",inline"`
+	IsNoIsland     bool       `yaml:"isnoisland"`
+	Mirrors        int        `yaml:"mirrors"`
+	MirrorType     MirrorType `yaml:"mirrortype"`
 }
 
 // LoadMapConfig - load from yaml

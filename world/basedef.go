@@ -19,3 +19,11 @@ const (
 	MapTypeNone     = 0 // None Type
 	MapTypeMainLand = 1 // main land
 )
+
+type MirrorType int
+
+const (
+	MirrorTypeX  = 0 // x/-x
+	MirrorTypeY  = 1 // y/-y
+	MirrorTypeXY = 2 // x,y/-x,-y
+)

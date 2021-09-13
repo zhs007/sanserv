@@ -23,6 +23,9 @@ func Test_LoadMapConfig(t *testing.T) {
 	assert.Equal(t, cfg.Width, 128)
 	assert.Equal(t, cfg.Height, 128)
 	assert.Equal(t, cfg.MapType, MapType(1))
+	assert.Equal(t, cfg.IsNoIsland, true)
+	assert.Equal(t, cfg.Mirrors, 2)
+	assert.Equal(t, cfg.MirrorType, MirrorType(2))
 
 	t.Logf("Test_LoadMapConfig OK")
 }

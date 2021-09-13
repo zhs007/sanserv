@@ -2,3 +2,9 @@ width: 128
 height: 128
 # 1 - main land /
 maptype: 1
+# no island
+isnoisland: true
+# number of mirrors
+mirrors: 2
+# 0 - x/-x / 1 - y/-y / 2 - x,y/-x,-y
+mirrortype: 2
