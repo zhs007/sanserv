@@ -13,6 +13,7 @@ type MapConfig struct {
 	IsNoIsland     bool       `yaml:"isnoisland"`
 	Mirrors        int        `yaml:"mirrors"`
 	MirrorType     MirrorType `yaml:"mirrortype"`
+	CenterType     CenterType `yaml:"centertype"`
 }
 
 // LoadMapConfig - load from yaml

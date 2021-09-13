@@ -26,6 +26,7 @@ func Test_LoadMapConfig(t *testing.T) {
 	assert.Equal(t, cfg.IsNoIsland, true)
 	assert.Equal(t, cfg.Mirrors, 2)
 	assert.Equal(t, cfg.MirrorType, MirrorType(2))
+	assert.Equal(t, cfg.CenterType, CenterType(0))
 
 	t.Logf("Test_LoadMapConfig OK")
 }

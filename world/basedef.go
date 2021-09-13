@@ -27,3 +27,11 @@ const (
 	MirrorTypeY  = 1 // y/-y
 	MirrorTypeXY = 2 // x,y/-x,-y
 )
+
+type CenterType int
+
+const (
+	CenterTypeNone     = 0 // none
+	CenterTypeMountain = 1 // mountain
+	CenterTypeLake     = 2 // lake
+)
