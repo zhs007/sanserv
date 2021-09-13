@@ -10,3 +10,11 @@ type Block struct {
 	UserID     basic.UserID
 	AllianceID basic.AllianceID
 }
+
+func NewBlock(x, y int, blockType BlockType) *Block {
+	return &Block{
+		X:         x,
+		Y:         y,
+		BlockType: blockType,
+	}
+}
