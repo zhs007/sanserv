@@ -1,6 +1,6 @@
 width: 128
 height: 128
-# 1 - main land; 
+# 1 - main land;
 maptype: 1
 # no island
 isnoisland: true
@@ -10,3 +10,21 @@ mirrors: 2
 mirrortype: 2
 # 0 - none; 1 - mountain; 2 - lake;
 centertype: 0
+
+resources:
+  - restype: 1
+    levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    levelpercentageex: [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+    percentage: 0.05
+  - restype: 2
+    levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    levelpercentageex: [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+    percentage: 0.05    
+  - restype: 3
+    levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    levelpercentageex: [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+    percentage: 0.05    
+  - restype: 4
+    levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    levelpercentageex: [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+    percentage: 0.05    

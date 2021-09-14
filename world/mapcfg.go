@@ -4,16 +4,26 @@ import (
 	"io/ioutil"
 
 	"github.com/zhs007/goutils"
+	"github.com/zhs007/sanserv/basic"
 	"go.uber.org/zap"
 	"gopkg.in/yaml.v2"
 )
 
+type MapResConfig struct {
+	ResType           basic.ResType    `yaml:"restype"`
+	Levels            []basic.ResLevel `yaml:"levels"`
+	LevelPercentageEx []int            `yaml:"levelpercentageex"`
+	LevelPercentage   []float32        `yaml:"levelpercentage"`
+	Percentage        float32          `yaml:"percentage"`
+}
+
 type MapConfig struct {
 	BasicMapConfig `yaml:",inline"`
-	IsNoIsland     bool       `yaml:"isnoisland"`
-	Mirrors        int        `yaml:"mirrors"`
-	MirrorType     MirrorType `yaml:"mirrortype"`
-	CenterType     CenterType `yaml:"centertype"`
+	IsNoIsland     bool           `yaml:"isnoisland"`
+	Mirrors        int            `yaml:"mirrors"`
+	MirrorType     MirrorType     `yaml:"mirrortype"`
+	CenterType     CenterType     `yaml:"centertype"`
+	Resources      []MapResConfig `yaml:"resources"`
 }
 
 // LoadMapConfig - load from yaml

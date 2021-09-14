@@ -9,6 +9,8 @@ type Block struct {
 	BlockType  BlockType
 	UserID     basic.UserID
 	AllianceID basic.AllianceID
+	ResType    basic.ResType
+	ResLevel   basic.ResLevel
 }
 
 func NewBlock(x, y int, blockType BlockType) *Block {
