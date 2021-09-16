@@ -32,7 +32,7 @@ func Test_LoadMapConfig(t *testing.T) {
 	assert.Equal(t, len(cfg.Resources), 4)
 	assert.Equal(t, cfg.Resources[0].ResType, basic.ResTypeFood)
 	assert.Equal(t, len(cfg.Resources[0].Levels), 10)
-	assert.Equal(t, len(cfg.Resources[0].LevelPercentageEx), 10)
+	assert.Equal(t, len(cfg.Resources[0].LevelPercentage), 10)
 	assert.Equal(t, goutils.IsFloatEquals(float64(cfg.Resources[0].Percentage), 0.05), true)
 
 	t.Logf("Test_LoadMapConfig OK")

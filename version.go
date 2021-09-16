@@ -1,4 +1,4 @@
 package sanserv
 
 // Version -
-const Version = "v0.1.7"
+const Version = "v0.1.8"

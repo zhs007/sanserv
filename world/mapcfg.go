@@ -11,23 +11,23 @@ import (
 )
 
 type MapResConfig struct {
-	ResType           basic.ResType    `yaml:"restype"`
-	Levels            []basic.ResLevel `yaml:"levels"`
-	LevelPercentageEx []int            `yaml:"levelpercentageex"`
-	LevelPercentage   []float32        `yaml:"levelpercentage"`
-	Percentage        float32          `yaml:"percentage"`
+	ResType            basic.ResType    `yaml:"restype"`
+	Levels             []basic.ResLevel `yaml:"levels"`
+	LevelPercentage    []int            `yaml:"levelpercentage"`
+	MaxLevelPercentage int              `yaml:"-"`
+	Percentage         float32          `yaml:"percentage"`
 }
 
 type MapConfig struct {
-	BasicMapConfig           `yaml:",inline"`
-	IsNoIsland               bool              `yaml:"isnoisland"`
-	Mirrors                  int               `yaml:"mirrors"`
-	MirrorType               MirrorType        `yaml:"mirrortype"`
-	CenterType               CenterType        `yaml:"centertype"`
-	Resources                []MapResConfig    `yaml:"resources"`
-	TotalResourcesPercentage float32           `yaml:"-"`
-	MapBlockType             [][]BlockType     `yaml:"mapblocktype"`
-	MapResType               [][]basic.ResType `yaml:"-"`
+	BasicMapConfig `yaml:",inline"`
+	IsNoIsland     bool               `yaml:"isnoisland"`
+	Mirrors        int                `yaml:"mirrors"`
+	MirrorType     MirrorType         `yaml:"mirrortype"`
+	CenterType     CenterType         `yaml:"centertype"`
+	Resources      []MapResConfig     `yaml:"resources"`
+	MapBlockType   [][]BlockType      `yaml:"mapblocktype"`
+	MapResType     [][]basic.ResType  `yaml:"-"`
+	MapResLevel    [][]basic.ResLevel `yaml:"-"`
 }
 
 // LoadMapConfig - load from yaml
@@ -65,13 +65,22 @@ func LoadMapConfig(fn string) (*MapConfig, error) {
 
 func (cfg *MapConfig) RandFirst() error {
 	for y := 0; y < cfg.Height; y++ {
-		cl := []BlockType{}
+		cbl := []BlockType{}
+		crtl := []basic.ResType{}
+		crll := []basic.ResLevel{}
 
 		for x := 0; x < cfg.Width; x++ {
-			cl = append(cl, BlockTypeFlat)
+			cbl = append(cbl, BlockTypeFlat)
+
+			rt, rl := cfg.genRes(x, y)
+
+			crtl = append(crtl, rt)
+			crll = append(crll, rl)
 		}
 
-		cfg.MapBlockType = append(cfg.MapBlockType, cl)
+		cfg.MapBlockType = append(cfg.MapBlockType, cbl)
+		cfg.MapResType = append(cfg.MapResType, crtl)
+		cfg.MapResLevel = append(cfg.MapResLevel, crll)
 	}
 
 	return nil
@@ -79,28 +88,37 @@ func (cfg *MapConfig) RandFirst() error {
 
 // GetBlockState - get a blocktype / restype / reslevel
 func (cfg *MapConfig) GetBlockState(x, y int) (BlockType, basic.ResType, basic.ResLevel) {
-	return cfg.MapBlockType[y][x], -1, 0
+	return cfg.MapBlockType[y][x], cfg.MapResType[y][x], cfg.MapResLevel[y][x]
 }
 
-func (cfg *MapConfig) genResType(x, y int) basic.ResType {
+func (cfg *MapConfig) genRes(x, y int) (basic.ResType, basic.ResLevel) {
 	cr := rand.Float32()
 
 	for _, v := range cfg.Resources {
 		if cr < v.Percentage {
-			return v.ResType
+			cr1 := rand.Int() % v.MaxLevelPercentage
+			for k1, v1 := range v.LevelPercentage {
+				if cr1 < v1 {
+					return v.ResType, v.Levels[k1]
+				}
+			}
+
+			return v.ResType, v.Levels[len(v.Levels)-1]
 		}
 
 		cr -= v.Percentage
 	}
 
-	return -1
+	return -1, 0
 }
 
 func (cfg *MapConfig) init() error {
-	cfg.TotalResourcesPercentage = 0
+	for k, v := range cfg.Resources {
+		cfg.Resources[k].MaxLevelPercentage = 0
 
-	for _, v := range cfg.Resources {
-		cfg.TotalResourcesPercentage += v.Percentage
+		for _, v1 := range v.LevelPercentage {
+			cfg.Resources[k].MaxLevelPercentage += v1
+		}
 	}
 
 	return nil
