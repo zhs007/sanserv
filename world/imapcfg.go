@@ -1,5 +1,7 @@
 package world
 
+import "github.com/zhs007/sanserv/basic"
+
 type IMapConfig interface {
 	// Get Width
 	GetWidth() int
@@ -9,8 +11,8 @@ type IMapConfig interface {
 	GetMapType() MapType
 	// RandFirst - rand at first
 	RandFirst() error
-	// GenBlockType - generate a blocktype
-	GenBlockType(x, y int) BlockType
+	// GetBlockState - get a blocktype / restype / reslevel
+	GetBlockState(x, y int) (BlockType, basic.ResType, basic.ResLevel)
 }
 
 type BasicMapConfig struct {

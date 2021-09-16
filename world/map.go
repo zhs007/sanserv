@@ -17,7 +17,8 @@ func NewMap(cfg IMapConfig) *Map {
 		ld := []*Block{}
 
 		for x := 0; x < cfg.GetWidth(); x++ {
-			cb := NewBlock(x, y, cfg.GenBlockType(x, y))
+			bt, rt, rl := cfg.GetBlockState(x, y)
+			cb := NewBlock(x, y, bt, rt, rl)
 
 			ld = append(ld, cb)
 		}
